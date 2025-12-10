@@ -1,0 +1,21 @@
+{
+  "compilerOptions": {
+    "target": "esnext",
+    "module": "CommonJS",
+    "outDir": "./dist",
+    "rootDir": "./src",
+    "moduleResolution": "node",
+    "declaration": true,
+    "declarationMap": true,
+    "sourceMap": true,
+    "esModuleInterop": true,
+    "noImplicitAny": false,
+    "forceConsistentCasingInFileNames": true,
+    "lib": [ "esnext" ],
+    "types": [ "node", "vitest/globals" ],
+    "strict": true,
+    "skipLibCheck": true,
+    "stripInternal": true
+  },
+  "include": ["src"]
+}
