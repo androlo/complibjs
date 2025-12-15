@@ -1,8 +1,6 @@
-// countFilteredSubsets.new.spec.ts
 import { describe, it, expect, vi } from "vitest";
 import { CFSeriesIndex, CFUnit } from "../src/types";
 import { countFilteredSubsets, filteredSubsetsGenerator } from "../src/power_set";
-
 
 // helpers
 const collect = <T>(g: Generator<T, void, unknown>) => {

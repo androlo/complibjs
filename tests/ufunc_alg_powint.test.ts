@@ -22,9 +22,9 @@ import {CFUnitFuncPowIntImpl} from "../src/ufunc";
 
 function getCompFunc(): CFCompFuncBinary {
     const base = makeValidCFCompDataset({
-        maxUnitIndex: 0,
-        maxSeriesIndex: 0,
-        numComparisons: 1,
+        maxUnitIndex: 0 as CFUint32,
+        maxSeriesIndex: 0 as CFUint32, 
+        numComparisons: 1 as CFUint32,
         loRange: [0.1,1],
         hiRange: [1,2]
     });

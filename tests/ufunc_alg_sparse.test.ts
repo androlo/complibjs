@@ -29,9 +29,9 @@ import {makeValidCFCompDataset} from "./utils/dataset_gen";
 
 function getCompFunc(): CFCompFuncBinary {
     const base = makeValidCFCompDataset({
-        maxUnitIndex: 1,
-        maxSeriesIndex: 0,
-        numComparisons: 2,
+        maxUnitIndex: 1 as CFUint32,
+        maxSeriesIndex: 0 as CFUint32,
+        numComparisons: 2 as CFUint32,
         loRange: [0.1,1],
         hiRange: [1,2]
     });
@@ -280,6 +280,7 @@ describe('CFUnitFuncSparseImpl.smul', () => {
 // tmul
 // ============================================================================
 describe('CFUnitFuncSparseImpl.tmul', () => {
+    
     it('other is Const zero ⇒ returns Const null', () => {
         const { suf } = __getSparse();
         const cz = createConstUnitFunc(1 as CFUint32One, suf.NU, suf.NS, ALGEBRA_IVAL.null());

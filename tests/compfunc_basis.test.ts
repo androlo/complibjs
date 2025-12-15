@@ -1,4 +1,3 @@
-// tests/compfunc.basis.spec.ts
 import { describe, it, expect } from 'vitest';
 import { createBinaryCompFunc } from '../src';
 import type {

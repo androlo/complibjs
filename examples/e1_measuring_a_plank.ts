@@ -26,7 +26,7 @@ import {
     ALGEBRA_IVAL
 } from "../src";
 
-function measurePlank(): void {
+export function measurePlank(): void {
 
     // Define units and series indices.
     const d = toUint32(0);

@@ -16,7 +16,7 @@ import {
  *
  * Here we will automatically complete a dataset with computed comparisons.
  */
-function datasetCompletion(): void {
+export function datasetCompletion(): void {
 
     // We start with the plank example from the previous example, without dataset completion.
     // Here we will cheat and do casts. Sound math is very important, so we shouldn't go

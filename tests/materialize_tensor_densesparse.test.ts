@@ -13,7 +13,8 @@ import {
     createBinaryCompFunc,
     createBaseUnitFunction,
     createConstUnitFunc,
-    CFStorageTag
+    CFStorageTag,
+    CFUint32
 } from "../src";
 import {makeValidCFCompDataset} from "./utils/dataset_gen";
 import {
@@ -23,9 +24,9 @@ import {
 
 function getCompFunc(): CFCompFuncBinary {
     const base = makeValidCFCompDataset({
-        maxUnitIndex: 1,
-        maxSeriesIndex: 0,
-        numComparisons: 2,
+        maxUnitIndex: 1 as CFUint32,
+        maxSeriesIndex: 0 as CFUint32, 
+        numComparisons: 2 as CFUint32,
         loRange: [0.1,1],
         hiRange: [1,2]
     });
@@ -35,7 +36,7 @@ function getCompFunc(): CFCompFuncBinary {
 describe('materializeTensorDenseSparse', () => {
     const cf = getCompFunc();
 
-    // Build Dense<1> from a sparse to have realistic data
+    // Build Dense<1> from a sparse
     const sp0 = createBaseUnitFunction(cf, 0 as CFUnit) as CFUnitFuncSparse<CFUint32One>;
     const d1 = materializeConstSparseAddSub(
         createConstUnitFunc(sp0.dim, sp0.NU, sp0.NS, ALGEBRA_IVAL.null()),

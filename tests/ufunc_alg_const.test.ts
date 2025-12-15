@@ -27,9 +27,9 @@ import {makeValidCFCompDataset} from "./utils/dataset_gen";
 
 function getCompFunc(): CFCompFuncBinary {
     const base = makeValidCFCompDataset({
-        maxUnitIndex: 0,
-        maxSeriesIndex: 0,
-        numComparisons: 1,
+        maxUnitIndex: 0 as CFUint32,
+        maxSeriesIndex: 0 as CFUint32, 
+        numComparisons: 1 as CFUint32,
         loRange: [0.1,1],
         hiRange: [1,2]
     });
@@ -216,7 +216,7 @@ describe('CFConstUnitFunc.sub', () => {
         // MAX - MAX may be well-defined (= 0), but if your total arithmetic collapses large-ulp issues to null,
         // keep this as-is. If not, swap to an overflow-prone pair as needed.
         expect(left.storage).toBe(CFStorageTag.Const);
-        // If your sub(MAX, MAX) is [0,0] mathematically, that *is* null by your model; this assertion still holds.
+
         expect(ALGEBRA_IVAL.isNull(left.value)).toBe(true);
 
         const right = cufMassive.sub(cufMassive, CFBinOpType.Right) as CFUnitFuncConst<CFUint32Two>;
@@ -289,7 +289,7 @@ describe('CFUnitFuncConstImpl.mul', () => {
     // 1D const (null)
     const cufNull1D = createConstUnitFunc(1 as CFUint32One, 1 as CFUint32, 1 as CFUint32, ALGEBRA_IVAL.null());
 
-    // zero-dim dense with non-null data (per your updated makeZeroDim behavior)
+    // zero-dim dense with non-null data 
     const zduf = createZeroDimFunc(1 as CFUint32, 1 as CFUint32, [ALGEBRA_IVAL.one()]);
 
     // sparse (dim=1) from a comp func (dim=2)
@@ -297,7 +297,7 @@ describe('CFUnitFuncConstImpl.mul', () => {
     let suf: CFUnitFuncSparse<CFUint32One>;
 
     beforeAll(() => {
-        cf = getCompFunc(); // replace with your real factory if needed
+        cf = getCompFunc(); 
         suf = createBaseUnitFunction(cf, 0 as CFUnit);
     });
 
@@ -387,7 +387,7 @@ describe('CFUnitFuncConstImpl.mul', () => {
         expect(res.opType).toBe(CFBinOpType.Left);
     });
 
-    it('Right variant sanity: 1 (const) × sparse (Right) still returns sparse', () => {
+    it('Right variant sanity: 1 (const) x sparse (Right) still returns sparse', () => {
         const one1D = createConstUnitFunc(1 as CFUint32One, 1 as CFUint32, 1 as CFUint32, ALGEBRA_IVAL.one());
         const res = one1D.mul(suf, CFBinOpType.Right) as CFUnitFuncSparse<CFUint32One>;
         expect(res).toBe(suf);

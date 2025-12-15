@@ -22,7 +22,7 @@ import {
  * Here we will look at substitutability, and how we can equate it with orthogonality. We will also
  * look at how it works on non-orthogonal comparison functions.
  */
-function substitutability(): void {
+export function substitutability(): void {
 
     // We start with the dataset from e4 - orthogonal substructure.
 

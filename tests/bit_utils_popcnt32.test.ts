@@ -10,7 +10,7 @@ export const rng = (seed: number): RandomGenerator =>
 export const nextU32 = (rGen: RandomGenerator) =>
     prand.unsafeUniformIntDistribution(0, 0xFFFFFFFF, rGen) >>> 0;
 
-// Naive reference popcount (straightforward loop)
+// Naive reference popcount implementation
 function popcnt32_ref(n: number): number {
     let x = n >>> 0; // force unsigned
     let cnt = 0;

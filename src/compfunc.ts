@@ -70,7 +70,7 @@ import {
  * Throws Error on the first violation found.
  */
 export function validateBinaryCompData(
-    arr: CFCompData[],
+    arr: readonly CFCompData[],
     numUnits: CFUint32,
     numSeriesIndices: CFUint32
 ): arr is CFValidCompDataSet {
@@ -186,7 +186,7 @@ export function validateBinaryCompData(
  *   where k_r is the number of distinct columns in row r.
  */
 export function createBinaryCompFunc(
-    arr: CFCompData[],
+    arr: readonly CFCompData[],
     numUnits: CFUint32,
     numSeriesIndices: CFUint32
 ): CFCompFuncBinaryImpl {
@@ -751,7 +751,7 @@ export class CFCompFuncBinaryImpl extends CFFuncSparseImpl<CFUint32Two>
  *
  * Throws Error on the first violation found.
  */
-export function validateNAryCompData<T extends CFCompDataN[] | CFCompData[]>(
+export function validateNAryCompData<T extends readonly CFCompDataN[] | readonly CFCompData[]>(
     arr: T,
     dim: CFDim,
     numUnits: CFUint32,
@@ -917,11 +917,10 @@ export function validateNAryCompData<T extends CFCompDataN[] | CFCompData[]>(
  * - Per-row Maps and sorted keys: O(N + Σ k_r log k_r).
  */
 export function createNAryCompFunc<Dim extends CFDimSparse>(
-    arr: CFCompDataN[] | CFCompData[],
+    arr: readonly CFCompDataN[] | readonly CFCompData[],
     dim: Dim,
     numUnits: CFUint32,
     numSeriesIndices: CFUint32
-    // TODO: fix return type to your concrete CFNAryCompFunc<V> (or similar).
 ): CFCompFuncNAry<Dim> {
 
     validateNAryCompData(arr, dim, numUnits, numSeriesIndices);

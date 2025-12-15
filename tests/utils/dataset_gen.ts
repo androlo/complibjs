@@ -8,17 +8,18 @@ import {
     CFSeriesIndex,
     CFUint32,
     CFUnit,
+    CFValidCompDataSet,
     isUint32
 } from "../../src";
 import {mulberry32_Real01, mulberry32_uint32_N} from "./mulberry";
 
 export type CFGenOptions = {
-    maxUnitIndex: number;              // U - 1
-    maxSeriesIndex: number;            // S - 1
-    numComparisons: number;            // >= max(U,S)
+    maxUnitIndex: CFUint32;              // U - 1
+    maxSeriesIndex: CFUint32;            // S - 1
+    numComparisons: CFUint32;            // >= max(U,S)
     loRange: [number, number];
     hiRange: [number, number];
-    seed?: number;
+    seed?: CFUint32;
     // Inclination to generate comparisons (u, u, s).
     diagonalBias?: 'none' | 'prefer' | 'avoid';
     // round-robin to spread out
@@ -26,7 +27,7 @@ export type CFGenOptions = {
 };
 
 export type CFGenResult = {
-    arr: CFComparison[];
+    arr: CFValidCompDataSet;
     numUnits: CFUint32;
     numSeriesIndices: CFUint32;
 };
@@ -49,6 +50,7 @@ export function makeValidCFCompDataset(opts: CFGenOptions): CFGenResult {
     if (!isUint32(S)) throw new Error(`Invalid maxSeriesIndex: ${S}`);
 
     const N = opts.numComparisons | 0;
+    // N is > 0 since max(U,S) >= 1
     if (N < Math.max(U, S)) {
         throw new Error(`numComparisons=${N} is too small to cover sets; need at least ${Math.max(U, S)}`);
     }
@@ -240,7 +242,7 @@ export function makeValidCFCompDataset(opts: CFGenOptions): CFGenResult {
         throw new Error(`Could only generate ${arr.length} of ${N} comparisons (capacity exhausted unevenly)`);
     }
 
-    return { arr, numUnits: U as CFUint32, numSeriesIndices: S as CFUint32 };
+    return { arr: arr as unknown as CFValidCompDataSet, numUnits: U as CFUint32, numSeriesIndices: S as CFUint32 };
 }
 
 // Helper: sample interval with lo <= hi, reject [0,0]

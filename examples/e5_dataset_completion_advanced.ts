@@ -17,7 +17,7 @@ import {
  *
  * Here we will automatically complete a dataset with computed comparisons to make it SI compatible.
  */
-function datasetCompletionAdvanced(): void {
+export function datasetCompletionAdvanced(): void {
 
     // We start with the plank example from the previous example, without dataset completion.
     const d = toUint32(0)!; // We cheat and use '!' here because we know the value is non-null.

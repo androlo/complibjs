@@ -220,6 +220,7 @@ describe('CFUnitFuncPowRealImpl.pow', () => {
 // nthRoot
 // ============================================================================
 describe('CFUnitFuncPowRealImpl.nthRoot', () => {
+
     it('n = 0 ⇒ Const null (total arithmetic)', () => {
         const A = powRealNode(2 as CFReal);
         const res = A.nthRoot(0 as CFUint32) as CFUnitFuncConst<CFDim>;
@@ -234,6 +235,7 @@ describe('CFUnitFuncPowRealImpl.nthRoot', () => {
         expect((res as any).base).toBe(A.base);
         expect((res as any).exp).toBeCloseTo(1); // 3 / 3
     });
+    
 });
 
 // ============================================================================

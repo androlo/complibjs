@@ -35,7 +35,6 @@ describe('materializeConstDense', () => {
         expect(out.NU).toBe(dense0.NU);
         expect(out.NS).toBe(dense0.NS);
 
-        // current impl reuses pows; if you later decide to clone, switch to deep-equality
         expect((out as any).pows).toBe((dense0 as any).pows);
 
         // values length matches input length
@@ -71,7 +70,7 @@ describe('materializeConstDense', () => {
     });
 
     describe('Sub', () => {
-        it('Left: const − dense', () => {
+        it('Left: const - dense', () => {
             const c = createConstUnitFunc(dense0.dim, dense0.NU, dense0.NS, [9, 9] as any);
             const out = materializeConstDense(c, dense0, ALGEBRA_IVAL.sub, CFBinOpType.Left);
             for (let s = 0 as CFSeriesIndex; s < S; s = (s + 1) as CFSeriesIndex) {
@@ -80,7 +79,7 @@ describe('materializeConstDense', () => {
             }
         });
 
-        it('Right: dense − const', () => {
+        it('Right: dense - const', () => {
             const c = createConstUnitFunc(dense0.dim, dense0.NU, dense0.NS, [9, 9] as any);
             const out = materializeConstDense(c, dense0, ALGEBRA_IVAL.sub, CFBinOpType.Right);
             for (let s = 0 as CFSeriesIndex; s < S; s = (s + 1) as CFSeriesIndex) {
@@ -89,7 +88,7 @@ describe('materializeConstDense', () => {
             }
         });
 
-        it('Left with const = null → (0 − dense) = −dense', () => {
+        it('Left with const = null → (0 - dense) = -dense', () => {
             const c0 = createConstUnitFunc(dense0.dim, dense0.NU, dense0.NS, ALGEBRA_IVAL.null());
             const out = materializeConstDense(c0, dense0, ALGEBRA_IVAL.sub, CFBinOpType.Left);
             for (let s = 0 as CFSeriesIndex; s < S; s = (s + 1) as CFSeriesIndex) {

@@ -1,17 +1,6 @@
-# complibjs
+# complibjs (beta)
 
 _A TypeScript/JavaScript implementation of the [Comparison Framework](https://github.com/androlo/comparison_framework) - a framework for processing measurement data._
-
-<p align="center">
-  <a href="#installation">Installation</a> •
-  <a href="#quick-start">Quick Start</a> •
-  <a href="#concepts">Concepts</a> •
-  <a href="#unit-function-storage-types">Storage Types</a> •
-  <a href="#immutability--performance">Immutability & Performance</a> •
-  <a href="#examples">Examples</a> •
-  <a href="#faq">FAQ</a>
-</p>
-
 
 ---
 
@@ -27,13 +16,13 @@ pnpm add complibjs
 yarn add complibjs
 ```
 
-Or pull the repository directly if you prefer a local workspace setup.
-
 ---
 
 ## Usage
 
 The best way to learn how the library works is by looking at the examples. They are very well documented, start simple, and cover most use cases.
+
+There is also a spec underway, in the spec folder.
 
 ## Concepts
 

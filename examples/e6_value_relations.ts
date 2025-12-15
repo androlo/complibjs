@@ -26,7 +26,7 @@ import {
  * they only care about whether values exist or not. Here we will use relations that care
  * about what the values are.
  */
-function valueRelations(): void {
+export function valueRelations(): void {
 
     // We first define the dataset.
     // d0 - a distance
@@ -150,7 +150,7 @@ function valueRelations(): void {
     const vRatLen = compFunc.VRAT_V([d0, d1, m], i0, errTransLen);
 
     // Should not happen.
-    if(!!vRatLen) {
+    if(!vRatLen) {
         throw new Error("Value rationality for length units is false!");
     }
 

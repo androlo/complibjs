@@ -12,14 +12,15 @@ const generateIndices = (cf: CFCompData[], U: number): Set<number> => {
 }
 
 describe('bitTestRow', () => {
+
     it('accepts a valid generated dataset', () => {
         const {arr, numUnits, numSeriesIndices} = makeValidCFCompDataset({
-            maxUnitIndex: 7,          // U=3
-            maxSeriesIndex: 3,        // S=2
-            numComparisons: 17,
+            maxUnitIndex: 7 as CFUint32,          // U=3
+            maxSeriesIndex: 3 as CFUint32,        // S=2
+            numComparisons: 17 as CFUint32,
             loRange: [-5, 2],
             hiRange: [-1, 8],
-            seed: 42,
+            seed: 42 as CFUint32,
             diagonalBias: 'avoid',
             seriesDistribution: 'roundRobin',
         });
@@ -34,6 +35,8 @@ describe('bitTestRow', () => {
                 }
             }
         }
+
+        
 
     });
 

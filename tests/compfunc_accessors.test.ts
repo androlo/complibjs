@@ -2,12 +2,8 @@
 import { describe, it, expect } from 'vitest';
 import {ALGEBRA_IVAL, CFIval, CFSeriesIndex, CFUint32, CFUnit, createBinaryCompFunc} from "../src";
 
-
 describe('CFCompFuncBinaryImpl accessors: get / getUnsafe / E', () => {
     // Fixture: U = 3 units (0..2), S = 2 series (0..1).
-    // Present entries:
-    //   s=0: (0,0)=[1,1], (0,2)=[2,3]
-    //   s=1: (1,0)=[4,5]
     const U = 3 as CFUint32;
     const S = 2 as CFUint32;
 

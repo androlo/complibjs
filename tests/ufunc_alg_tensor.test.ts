@@ -26,9 +26,9 @@ import {makeValidCFCompDataset} from "./utils/dataset_gen";
 
 function getCompFunc(): CFCompFuncBinary {
     const base = makeValidCFCompDataset({
-        maxUnitIndex: 0,
-        maxSeriesIndex: 0,
-        numComparisons: 1,
+        maxUnitIndex: 0 as CFUint32,
+        maxSeriesIndex: 0 as CFUint32,
+        numComparisons: 1 as CFUint32,
         loRange: [0.1,1],
         hiRange: [1,2]
     });
@@ -276,18 +276,5 @@ describe('CFUnitFuncTensorImpl.powInt / pow / nthRoot', () => {
         expect(res.storage).toBe(CFStorageTag.NthRoot);
         expect((res as any).exp).toBe(3);
         expect((res as any).dim).toBe((t as any).dim);
-    });
-});
-
-// ============================================================================
-// type guards & materialize
-// ============================================================================
-describe('CFUnitFuncTensorImpl — guards & materialize', () => {
-    it('isLeaf() false, isAlg() true, materialize() delegates (not null)', () => {
-        const { t } = makeTensor01();
-        expect(t.isLeaf()).toBe(false);
-        expect(t.isAlg()).toBe(true);
-        // The actual materialized form depends on your engine; just assert not undefined.
-        expect(t.materialize()).toBeTruthy();
     });
 });

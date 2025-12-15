@@ -5,7 +5,8 @@ import {
     createZeroDimFunc,
     createBinaryCompFunc,
     CFStorageTag,
-    CFReal
+    CFReal,
+    CFUint32
 } from "../src";
 import {makeValidCFCompDataset} from "./utils/dataset_gen";
 
@@ -14,9 +15,9 @@ describe("createZeroDimUnitFunc", () => {
     it("creates a 0-D per-series function and reads by series index", () => {
 
         const base = makeValidCFCompDataset({
-            maxUnitIndex: 1,
-            maxSeriesIndex: 1,
-            numComparisons: 2,
+            maxUnitIndex: 1 as CFUint32,
+            maxSeriesIndex: 1 as CFUint32,
+            numComparisons: 2 as CFUint32,
             loRange: [0.1,1],
             hiRange: [1,2]
         });

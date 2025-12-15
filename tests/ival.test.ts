@@ -111,9 +111,6 @@ describe("CFValueAlgebraIval", () => {
         const q = ivalAlg.div(x, y);
         expect(q).toBeDefined();
 
-        // 2/2 = 1, 4/1 = 4, so result should be somewhere within [1,4]
-        // Precisely via IA: 1/[1,2] = [1/2,1] so x / y = [2,4] * [0.5,1] =
-        // products: 2*0.5=1, 2*1=2, 4*0.5=2, 4*1=4 ⇒ [1,4]
         expect(q).toEqual(ival(1, 4));
     });
 

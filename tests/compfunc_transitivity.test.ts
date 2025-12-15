@@ -1,4 +1,3 @@
-// tests/compfunc.transitivity.spec.ts
 import { describe, it, expect } from 'vitest';
 import {
     createBinaryCompFunc,

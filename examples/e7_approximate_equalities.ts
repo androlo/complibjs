@@ -22,7 +22,7 @@ import {
  * This example will use orthogonality and value rationality (from the last example) to help make
  * a few predictions.
  */
-function approximateEqualities(): void {
+export function approximateEqualities(): void {
 
     // We first define the dataset.
     // d0 - a distance

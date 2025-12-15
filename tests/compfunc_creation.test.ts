@@ -20,12 +20,12 @@ function checkCompFunc(cf: CFCompFuncBinary, arr: CFCompData[]) {
 describe('binary validator success', () => {
     it('accepts a valid generated dataset', () => {
         const { arr, numUnits, numSeriesIndices } = makeValidCFCompDataset({
-            maxUnitIndex: 2,          // U=3
-            maxSeriesIndex: 1,        // S=2
-            numComparisons: 10,
+            maxUnitIndex: 2 as CFUint32,          // U=3
+            maxSeriesIndex: 1 as CFUint32,        // S=2
+            numComparisons: 10 as CFUint32,
             loRange: [-5, 2],
             hiRange: [-1, 8],
-            seed: 42,
+            seed: 42 as CFUint32,
             diagonalBias: 'avoid',
             seriesDistribution: 'roundRobin',
         });
@@ -36,12 +36,12 @@ describe('binary validator success', () => {
 describe('correctly produced binary comparison functions', () => {
     it('accepts a valid generated dataset', () => {
         const { arr, numUnits, numSeriesIndices } = makeValidCFCompDataset({
-            maxUnitIndex: 2,          // U=3
-            maxSeriesIndex: 1,        // S=2
-            numComparisons: 10,
+            maxUnitIndex: 2 as CFUint32,          // U=3
+            maxSeriesIndex: 1 as CFUint32,        // S=2
+            numComparisons: 10 as CFUint32,
             loRange: [-5, 2],
             hiRange: [-1, 8],
-            seed: 42,
+            seed: 42 as CFUint32,
             diagonalBias: 'avoid',
             seriesDistribution: 'roundRobin',
         });
@@ -61,12 +61,12 @@ describe('correctly produced binary comparison functions', () => {
 
         for (const { maxUnitIndex, numComparisons, seed } of cases) {
             const gen = makeValidCFCompDataset({
-                maxUnitIndex,
-                maxSeriesIndex: 0,             // S=1 (series index 0)
-                numComparisons,
+                maxUnitIndex: maxUnitIndex as CFUint32,
+                maxSeriesIndex: 0 as CFUint32,             // S=1 (series index 0)
+                numComparisons: numComparisons as CFUint32,
                 loRange: [0, 1],               // keep simple, avoid negatives for now
                 hiRange: [1, 5],               // ensures lo <= hi and avoids [0,0] most of the time
-                seed,
+                seed: seed as CFUint32,
                 diagonalBias: 'prefer',        // improve odds of (u,u,0)
                 seriesDistribution: 'roundRobin',
             });
@@ -84,9 +84,9 @@ describe('correctly produced binary comparison functions', () => {
 describe('binary validator failures (one rule per test)', () => {
     it('Rule 1: empty array', () => {
         const base = makeValidCFCompDataset({
-            maxUnitIndex: 1,
-            maxSeriesIndex: 0,
-            numComparisons: 2,
+            maxUnitIndex: 1 as CFUint32,
+            maxSeriesIndex: 0 as CFUint32,
+            numComparisons: 2 as CFUint32,
             loRange: [0.1,1],
             hiRange: [1,2]
         });
@@ -96,9 +96,9 @@ describe('binary validator failures (one rule per test)', () => {
 
     it('Rule 5: missing a unit index', () => {
         const base = makeValidCFCompDataset({
-            maxUnitIndex: 3,
-            maxSeriesIndex: 1,
-            numComparisons: 12,
+            maxUnitIndex: 3 as CFUint32,
+            maxSeriesIndex: 1 as CFUint32,
+            numComparisons: 12 as CFUint32,
             loRange: [0.1,1],
             hiRange: [1,2]
         });
@@ -108,9 +108,9 @@ describe('binary validator failures (one rule per test)', () => {
 
     it('Rule 7: duplicate (u,v,s)', () => {
         const base = makeValidCFCompDataset({
-            maxUnitIndex: 2,
-            maxSeriesIndex: 2,
-            numComparisons: 12,
+            maxUnitIndex: 2 as CFUint32,
+            maxSeriesIndex: 2 as CFUint32,
+            numComparisons: 12 as CFUint32,
             loRange: [0.1,1],
             hiRange: [1,2]
         });

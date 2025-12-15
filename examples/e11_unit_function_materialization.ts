@@ -37,7 +37,7 @@
  *
  * WARNING:
  *
- * Running this file may take several seconds to complete, as it does a lot of computations.
+ * Running this file may take several seconds to complete.
  */
 import {CFGenOptions, makeValidCFCompDataset} from "../tests/utils/dataset_gen";
 import {
@@ -54,7 +54,7 @@ import {
 } from "../src";
 import {performance} from "node:perf_hooks";
 
-function unitFunctionMaterialization(): void {
+export function unitFunctionMaterialization(): void {
 
     // Here we will use an auto generator to create a comparison function with a significant
     // number of comparisons - 1001 units and one frame, 500'000 comparisons.

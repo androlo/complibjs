@@ -1,23 +1,7 @@
-/* -----------------------------------------
-   Concrete algebra for intervals: CFIval = [lo, hi]
-   Standard choices:
-   - Order: subset (inclusion) partial order: x ⊆ y  <=>  y.lo <= x.lo && x.hi <= y.hi
-   - Arithmetic: classic interval arithmetic (naïve hulls).
-   - "null" is [0,0]; "one" is [1,1].
-   - abs([a,b]) =
-       [a>=0? a : 0, b<=0? -a : Math.max(-a,b)] specialized to cases:
-         if b <= 0 -> [-b, -a]
-         else if a >= 0 -> [a, b]
-         else -> [0, Math.max(-a, b)]
-   - principal(x) = midpoint encoded as [m,m]; error(x) = radius encoded as [r,r].
-   - enorm(x) now equals mag(x) encoded as [m,m] for compatibility.
-   ----------------------------------------- */
 import {CFValueAlgebra, CFValueByteWriter} from "../value";
 import {CFInt32, CFReal, CFRealOne, CFRealZero, CFUint32, isInt32} from "../types";
 import {intPow} from "../math_utils";
-import {ALGEBRA_REAL, CFAlgebraReal} from "../real_algebra";
-
-/** Interval component selector. */
+import {ALGEBRA_REAL} from "../real_algebra";
 
 export type CFIval = readonly [lo: CFReal, hi: CFReal];
 export type CFIvalOne = readonly [CFRealOne, CFRealOne];
@@ -43,7 +27,6 @@ export class CFIvalByteWriter implements CFValueByteWriter<CFIval> {
         this.dv.setFloat64(pos + 8, val[1], true);
     }
 }
-
 
 /**
  * Interval arithmetic over closed real intervals [lo, hi], with lo <= hi.
@@ -111,7 +94,7 @@ export class CFIvalByteWriter implements CFValueByteWriter<CFIval> {
  * - Whenever the real-valued result is not representable as a single closed interval
  *   (e.g., division by an interval containing 0, even root of an interval containing
  *   negative values, non-integer power of a non-positive interval), the operation
- *   returns `undefined`.
+ *   returns `[0, 0]`.
  */
 export class CFValueAlgebraIval implements CFValueAlgebra<CFIval, CFIvalNull, CFIvalOne> {
     readonly typeName = "Ival";

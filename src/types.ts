@@ -73,6 +73,7 @@ export type CFInt32Six = 6 & { readonly [CFInt32Brand]: "CFInt32" };
 export type CFInt32Seven = 7 & { readonly [CFInt32Brand]: "CFInt32" };
 export type CFInt32Eight = 8 & { readonly [CFInt32Brand]: "CFInt32" };
 export type CFInt32Nine = 9 & { readonly [CFInt32Brand]: "CFInt32" };
+export type CFInt32Ten = 10 & { readonly [CFInt32Brand]: "CFInt32" };
 
 export type CFBitZero = 0 & { readonly [CFBitBrand]: "CFBit" };
 export type CFBitOne = 1 & { readonly [CFBitBrand]: "CFBit" };
@@ -115,12 +116,12 @@ export type CFComparison = readonly [u: CFUnit, v: CFUnit, s: CFSeriesIndex, val
 export type CFComparisonN = readonly [...units: readonly CFUnit[], s: CFSeriesIndex, value: CFIval] &
     { readonly [CFComparisonNBrand]: "CFComparisonN" };
 
-export type CFValidCompDataSet = [CFComparison, ...CFComparison[]]; // At least one item.
-export type CFValidCompDataSetN = [CFComparisonN, ...CFComparisonN[]];
+export type CFValidCompDataSet = readonly [CFComparison, ...CFComparison[]]; // At least one item.
+export type CFValidCompDataSetN = readonly [CFComparisonN, ...CFComparisonN[]];
 
 // Pre-validation comparison types
 export type CFCompData = readonly [u: number, v: number, s: number, value: readonly [number, number]];
-export type CFCompDataN =readonly [...idx: readonly number[], value: readonly [number, number]];
+export type CFCompDataN = readonly [...idx: readonly number[], value: readonly [number, number]];
 
 export const enum CFFunctionalStorageType {
     Arith = 0,

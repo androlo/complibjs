@@ -35,7 +35,7 @@ describe('materializeDenseDense', () => {
         expect(out.dim).toBe(dA.dim);
         expect(out.NU).toBe(dA.NU);
         expect(out.NS).toBe(dA.NS);
-        // implementation currently returns ufr.pows
+
         expect((out as any).pows).toBe((dB as any).pows);
         expect((out as any).values.length).toBe((dA as any).values.length);
     });

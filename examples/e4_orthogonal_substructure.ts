@@ -25,7 +25,7 @@ import {print2DAdj} from "../src/presentation";
  *  We start with a toy experiment where two distances are measured against the meter, and a time
  *  against the second. Two groups of measurements are made.
  */
-function orthogonalSubstructure(): void {
+export function orthogonalSubstructure(): void {
     // We first define the dataset.
     // d0 - a distance
     // d1 - another distance

@@ -1,10 +1,5 @@
 // 1) Mutators
-type MutableUint32Methods =
-    | "set"
-    | "fill"
-    | "copyWithin"
-    | "reverse"
-    | "sort";
+type MutableUint32Methods = "set" | "fill" | "copyWithin" | "reverse" | "sort";
 
 // 2) Props
 type HiddenProps = "buffer" | "subarray" | "slice" | "map" | "filter" | "toSorted" | "toReversed" | "with";

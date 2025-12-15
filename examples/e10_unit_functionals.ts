@@ -7,7 +7,7 @@ import {
     ALGEBRA_IVAL,
     CFComparison,
     CFCompData,
-    CFCompFuncBinary, CFDim, CFInt32,
+    CFCompFuncBinary, CFDim, 
     CFIval, CFReal,
     CFUint32,
     CFUint32One,
@@ -55,7 +55,7 @@ class LinearComboUnitFunctional<UFDim extends CFDim> extends CFUnitFunctionalAbs
     }
 }
 
-function unitFunctionals(): void {
+export function unitFunctionals(): void {
     // We start with the dataset from e4 - orthogonal substructure.
 
     // We first define the dataset.
@@ -83,7 +83,7 @@ function unitFunctionals(): void {
 
     // We make the standard SI completion.
     const closeOpts = getStandardCloseOptions();
-    let completedDataSet: CFComparison[];
+    let completedDataSet: readonly CFComparison[];
     if (validateBinaryCompData(dataSet, numUnits, numSeriesIndices)) {
         try {
             completedDataSet = processData(dataSet, numUnits, numSeriesIndices, closeOpts);

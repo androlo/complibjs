@@ -15,7 +15,8 @@ import {
     createBaseUnitFunction,
     createConstUnitFunc,
     createZeroDimFunc,
-    CFStorageTag
+    CFStorageTag,
+    CFUint32
 } from "../src";
 import {makeValidCFCompDataset} from "./utils/dataset_gen";
 import {
@@ -26,9 +27,9 @@ import {
 
 function getCompFunc(): CFCompFuncBinary {
     const base = makeValidCFCompDataset({
-        maxUnitIndex: 1,
-        maxSeriesIndex: 0,
-        numComparisons: 2,
+        maxUnitIndex: 1 as CFUint32,
+        maxSeriesIndex: 0 as CFUint32, 
+        numComparisons: 2 as CFUint32,
         loRange: [0.1,1],
         hiRange: [1,2]
     });
@@ -38,7 +39,7 @@ function getCompFunc(): CFCompFuncBinary {
 describe('materializeTensorDenseDense', () => {
     const cf = getCompFunc();
 
-    // Build two realistic Dense<1> from your sparse base for convenience.
+    // Build two realistic Dense<1> from sparse base for convenience.
     const sp0 = createBaseUnitFunction(cf, 0 as CFUnit) as CFUnitFuncSparse<CFUint32One>;
     const sp1 = createBaseUnitFunction(cf, 1 as CFUnit) as CFUnitFuncSparse<CFUint32One>;
 
@@ -86,10 +87,8 @@ describe('materializeTensorDenseDense', () => {
     it('dimL=1, dimR=2 spot-check', () => {
         // Make a Dense<2> on the right from a const<2> ⊗ dense<0> (simple way to get a dim-2 block)
         const c2 = createConstUnitFunc(2 as CFUint32Two, NU, NS, [2, 2] as any);
-        // Reuse your earlier materializer to build a Dense<2> quickly:
+   
         const dR2 = materializeTensorConstDense(c2, createZeroDimFunc(NU, NS, [ALGEBRA_IVAL.one(), ALGEBRA_IVAL.one()])) as CFUnitFuncDense<CFUint32Two>;
-        // If that path isn’t handy in your current file, feel free to create another Dense<2> however you prefer.
-
         const out = materializeTensorDenseDense(dL1, dR2)! as CFUnitFuncDense<CFUint32Three>;
         expect(out.dim).toBe((dL1.dim + dR2.dim) as CFDim);
 
@@ -107,4 +106,5 @@ describe('materializeTensorDenseDense', () => {
             }
         }
     });
+    
 });

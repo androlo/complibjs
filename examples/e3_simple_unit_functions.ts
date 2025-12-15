@@ -20,7 +20,7 @@ import {
  *
  * Here we will create unit functions for 'd' and 'm' in the running plank example.
  */
-function datasetCompletion(): void {
+export function simpleUnitFunction(): void {
 
     // We start with the plank example from the previous example, and complete the dataset.
     const d = 0 as CFUnit;
@@ -127,7 +127,7 @@ function datasetCompletion(): void {
     }
 
     // Let's build the tensor product next (can't cause dimensional mismatches so always returns a function).
-    const tProd = fd.tmul(fm);
+    const tProd = fd.tmul(fm)!;
 
     // This function should take two arguments. Let's try for all possible combinations.
     const tdd = tProd.get(d, d, s)!;
@@ -185,4 +185,4 @@ function datasetCompletion(): void {
     return;
 }
 
-datasetCompletion();
+simpleUnitFunction();

@@ -1,24 +1,25 @@
 {
   "name": "@comp/complibjs",
-  "version": "0.0.0",
+  "version": "0.9.0",
   "description": "Comparison Framework for JavaScript/TypeScript.",
   "author": {
-    "name": "Andreas Olofsson"
+    "name": "Andreas Olofsson",
+    "email": "compfram@gmail.com"
   },
   "scripts": {
     "tsc": "tsc",
     "build": "tsc",
+    "prepublishOnly": "tsc",
     "clean": "tsc --build --clean",
     "test": "vitest run",
-    "test:watch": "vitest",
-    "test:cov": "vitest run --coverage",
-    "perf": "esbuild perf/cf_power_set.perf.ts --platform=node --format=esm --bundle --outfile=.bench.mjs && node --cpu-prof --enable-source-maps --cpu-prof-name=cpu.cpuprofile .bench.mjs"
+    "test:cov": "vitest run --coverage"
   },
   "files": [
     "dist"
   ],
-  "sideEffects": false,
   "types": "./dist/index.d.ts",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
@@ -54,10 +55,9 @@
     "ts-node": "^10.9.2",
     "typescript": "^5.9.3",
     "typescript-eslint": "^7.18.0",
-    "vitest": "^4.0.4",
-    "loglayer": "^8.1.0"
+    "vitest": "^4.0.4"
   },
   "dependencies": {
-
+    "loglayer": "^8.1.0"
   }
 }

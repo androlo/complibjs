@@ -1,5 +1,5 @@
 /* -----------------------------------------
-   Concrete algebra for real machine-numbers (double precision floats): CFReal = number
+   Concrete algebra for real machine-numbers (double precision floats)
    Notes:
    - Valid values are finite numbers (no NaN/±Infinity).
    - Division by zero / inverse of zero returns undefined.

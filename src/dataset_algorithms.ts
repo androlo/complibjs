@@ -71,7 +71,7 @@ export function sparseToCFCompData(
     if(result.length === 0) {
         throw new Error("sparseToCFCompData: resulting dataset is empty.");
     }
-    return result as CFValidCompDataSet;
+    return result as unknown as CFValidCompDataSet;
 }
 
 // Check that refFunc() is not null and is fixed for symFunc and transFunc,
@@ -309,8 +309,9 @@ export interface ReindexResult {
 export function pruneUnits(
     dataset: CFValidCompDataSet,
     numUnits: CFUint32,
-    unitSubset: Set<CFUint32>
+    unitSubset: ReadonlySet<CFUint32>
 ): UnitReindexResult | undefined {
+
     // validate subset
     for (const u of unitSubset) {
         if (u < 0 || u >= numUnits) {
@@ -362,7 +363,7 @@ export function pruneUnits(
     }
 
     return {
-        dataset: reindexed,
+        dataset: reindexed as unknown as CFValidCompDataSet,
         unitMap,
     };
 }
@@ -376,7 +377,7 @@ export function pruneUnits(
 export function pruneSeries(
     dataset: CFValidCompDataSet,
     numSeriesIndices: CFUint32,
-    seriesSubset: Set<CFUint32>
+    seriesSubset: ReadonlySet<CFUint32>
 ): SeriesReindexResult | undefined {
     // validate subset
     for (const s of seriesSubset) {
@@ -428,9 +429,13 @@ export function pruneSeries(
 
         reindexed.push([u, v, newS, x] as unknown as CFComparison);
     }
+    if (reindexed.length === 0) {
+        console.error("pruneSeries: resulting dataset is empty.");
+        return undefined;
+    }
 
     return {
-        dataset: reindexed,
+        dataset: reindexed as unknown as CFValidCompDataSet,
         seriesMap,
     };
 }
@@ -451,8 +456,8 @@ export function pruneDataset(
     dataset: CFValidCompDataSet,
     numUnits: CFUint32,
     numSeriesIndices: CFUint32,
-    unitSubset: Set<CFUnit>,
-    seriesSubset: Set<CFSeriesIndex>
+    unitSubset: ReadonlySet<CFUnit>,
+    seriesSubset: ReadonlySet<CFSeriesIndex>
 ): ReindexResult | undefined {
     // first do units
     const unitsResult = pruneUnits(dataset, numUnits, unitSubset);

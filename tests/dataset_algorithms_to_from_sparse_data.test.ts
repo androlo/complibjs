@@ -1,15 +1,9 @@
-// buildSparseDataPerSeries.test.ts
 import { describe, it, expect } from "vitest";
 import { buildSparseDataPerSeries, sparseToCFCompData } from "../src/dataset_algorithms";
 
-// Types (only the ones we need for casts)
 import {
-  type CFUnit,
-  type CFSeriesIndex,
-  type CFReal,
-  type CFIval,
   type CFValidCompDataSet,
-  ALGEBRA_IVAL
+  CFUint32
 } from "../src";
 import { CFGenOptions, makeValidCFCompDataset } from "./utils/dataset_gen";
 
@@ -49,12 +43,12 @@ describe("buildSparseDataPerSeries", () => {
   it("sorts big dataset", () => {
     
     const opts: CFGenOptions = {
-        maxUnitIndex: 25,
-        maxSeriesIndex: 4,
-        numComparisons: 1000,
+        maxUnitIndex: 25 as CFUint32,
+        maxSeriesIndex: 4 as CFUint32,
+        numComparisons: 1000 as CFUint32,
         loRange: [0, 100],
         hiRange: [101, 200],
-        seed: 42,
+        seed: 42 as CFUint32,
         diagonalBias: 'none',
         seriesDistribution: 'roundRobin'
     };
@@ -91,12 +85,12 @@ describe("sparseToCFCompData", () => {
   it("reconstructs a dataset", () => {
     
     const opts: CFGenOptions = {
-        maxUnitIndex: 8,
-        maxSeriesIndex: 4,
-        numComparisons: 100,
+        maxUnitIndex: 8 as CFUint32,
+        maxSeriesIndex: 4 as CFUint32,
+        numComparisons: 100 as CFUint32,
         loRange: [0, 100],
         hiRange: [101, 200],
-        seed: 42,
+        seed: 42 as CFUint32,
         diagonalBias: 'none',
         seriesDistribution: 'roundRobin'
     };

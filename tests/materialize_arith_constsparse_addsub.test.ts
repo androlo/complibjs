@@ -11,16 +11,17 @@ import {
     createBinaryCompFunc,
     createBaseUnitFunction,
     createConstUnitFunc,
-    CFStorageTag
+    CFStorageTag,
+    CFUint32
 } from "../src";
 import {makeValidCFCompDataset} from "./utils/dataset_gen";
 import {materializeConstSparseAddSub} from "../src/materialize";
 
 function getCompFunc(): CFCompFuncBinary {
     const base = makeValidCFCompDataset({
-        maxUnitIndex: 0,
-        maxSeriesIndex: 0,
-        numComparisons: 1,
+        maxUnitIndex: 0 as CFUint32,
+        maxSeriesIndex: 0 as CFUint32,
+        numComparisons: 1 as CFUint32,
         loRange: [0.1,1],
         hiRange: [1,2]
     });
@@ -28,7 +29,7 @@ function getCompFunc(): CFCompFuncBinary {
 }
 
 describe('materializeConstSparseAddSub', () => {
-    // Build a real 1-D sparse (CSR) from your factory
+    // Build a real 1-D sparse (CSR)
     const cf = getCompFunc();
     const sparse1D = createBaseUnitFunction(cf, 0 as CFUnit); // CFUnitFuncSparse<1>
     const NU = sparse1D.NU;
@@ -69,7 +70,7 @@ describe('materializeConstSparseAddSub', () => {
         checkPoints(out as CFUnitFuncDense<CFUint32One>, c.value, ALGEBRA_IVAL.add, false);
     });
 
-    it('Sub, opType=Left: (const − sparse) → Dense', () => {
+    it('Sub, opType=Left: (const - sparse) → Dense', () => {
         const c = createConstUnitFunc(sparse1D.dim, NU, NS, [5, 7] as any as CFIval);
         const out = materializeConstSparseAddSub(c, sparse1D, ALGEBRA_IVAL.sub, CFBinOpType.Left);
         expect(out.storage).toBe(CFStorageTag.Dense);
@@ -77,7 +78,7 @@ describe('materializeConstSparseAddSub', () => {
         checkPoints(out as CFUnitFuncDense<CFUint32One>, c.value, ALGEBRA_IVAL.sub, true);
     });
 
-    it('Sub, opType=Right: (sparse − const) → Dense', () => {
+    it('Sub, opType=Right: (sparse - const) → Dense', () => {
         const c = createConstUnitFunc(sparse1D.dim, NU, NS, [5, 7] as any as CFIval);
         const out = materializeConstSparseAddSub(c, sparse1D, ALGEBRA_IVAL.sub, CFBinOpType.Right);
         expect(out.storage).toBe(CFStorageTag.Dense);
@@ -100,7 +101,7 @@ describe('materializeConstSparseAddSub', () => {
         }
     });
 
-    it('Sub with const null, opType=Left: (0 − sparse) = −sparse', () => {
+    it('Sub with const null, opType=Left: (0 - sparse) = -sparse', () => {
         const c0 = createConstUnitFunc(sparse1D.dim, NU, NS, ALGEBRA_IVAL.null());
         const out = materializeConstSparseAddSub(c0, sparse1D, ALGEBRA_IVAL.sub, CFBinOpType.Left);
         const maxU = Math.min(NU, 8);

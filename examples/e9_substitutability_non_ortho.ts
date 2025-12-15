@@ -7,8 +7,11 @@ import {
     CFBaseUnitFunc,
     degSub,
     substitutable,
-    pruneDataset
+    pruneDataset,
+    CFValidCompDataSet
 } from "../src";
+
+import {print2DAdj} from "../src/presentation";
 
 import {makeValidCFCompDataset} from "../tests/utils/dataset_gen";
 
@@ -55,78 +58,76 @@ import {makeValidCFCompDataset} from "../tests/utils/dataset_gen";
  * This file walks through an example of that situation and attaches a concrete
  * physical interpretation to make the construction more intuitive.
  */
-function substitutability(): void {
+export function substitutabilityNonOrthogonal(): void {
 
     const numUnits = 7 as CFUint32;
     const numSeriesIndices = 1 as CFUint32;
 
     // We start with a valid dataset from tests\utils\dataset_gen.ts.
     const gen = makeValidCFCompDataset({
-        maxUnitIndex: numUnits - 1,
-        maxSeriesIndex: numSeriesIndices - 1,
-        numComparisons: 47,
+        maxUnitIndex: numUnits - 1 as CFUint32,
+        maxSeriesIndex: numSeriesIndices - 1 as CFUint32,
+        numComparisons: 47 as CFUint32,
         loRange: [0.1, 1],
         hiRange: [1, 5],
-        seed: 123456789,
+        seed: 123456789 as CFUint32,
         diagonalBias: 'none', // We don't want special focus on comparisons (u, u, 0).
         seriesDistribution: 'roundRobin',
     });
 
-    // Fixed seed, so the dataset is deterministic. It looks like this:
-    console.log(gen.arr);
-    /**
-     * [
-     *   [ 0, 1, 0, [ 0.33201166945509614, 4.883088446222246 ] ],
-     *   [ 1, 2, 0, [ 0.8067952128592879, 1.8246583193540573 ] ],
-     *   [ 2, 3, 0, [ 0.37276469871867446, 3.988264188170433 ] ],
-     *   [ 3, 4, 0, [ 0.8008602868765593, 2.1380385160446167 ] ],
-     *   [ 4, 5, 0, [ 0.11488324149977416, 1.6458587693050504 ] ],
-     *   [ 5, 6, 0, [ 0.4293108242331073, 2.723430217243731 ] ],
-     *   [ 6, 0, 0, [ 0.6107399891829118, 1.708322730846703 ] ],
-     *   [ 3, 5, 0, [ 0.6358937189215794, 2.6811922695487738 ] ],
-     *   [ 5, 5, 0, [ 0.14754845001734795, 2.57244582939893 ] ],
-     *   [ 5, 2, 0, [ 0.5258181978249923, 4.058477280661464 ] ],
-     *   [ 5, 1, 0, [ 0.9172770081553608, 2.8262222073972225 ] ],
-     *   [ 2, 1, 0, [ 0.2308832285925746, 1.8733194768428802 ] ],
-     *   [ 4, 2, 0, [ 0.24257136990781875, 4.014981255866587 ] ],
-     *   [ 6, 6, 0, [ 0.4252595612546429, 2.0168049158528447 ] ],
-     *   [ 3, 2, 0, [ 0.6129399889847263, 1.9084835834801197 ] ],
-     *   [ 2, 6, 0, [ 0.2735358789563179, 3.886520658619702 ] ],
-     *   [ 6, 2, 0, [ 0.4895730606513098, 1.6259095501154661 ] ],
-     *   [ 1, 5, 0, [ 0.9443232758669182, 4.506862010806799 ] ],
-     *   [ 5, 4, 0, [ 0.4377286916365847, 2.655184085480869 ] ],
-     *   [ 6, 4, 0, [ 0.15350653247442098, 2.56502952799201 ] ],
-     *   [ 6, 3, 0, [ 0.46744205243885517, 1.0989629067480564 ] ],
-     *   [ 4, 6, 0, [ 0.6586173052666708, 1.8738419190049171 ] ],
-     *   [ 1, 6, 0, [ 0.40803852293174714, 1.1489534731954336 ] ],
-     *   [ 0, 0, 0, [ 0.46610816873144356, 4.008982612751424 ] ],
-     *   [ 1, 3, 0, [ 0.9532831894233823, 4.488079427741468 ] ],
-     *   [ 3, 3, 0, [ 0.3890491528203711, 2.0643156971782446 ] ],
-     *   [ 0, 6, 0, [ 0.8997664509341121, 4.2667316403239965 ] ],
-     *   [ 5, 3, 0, [ 0.3783632237231359, 1.9501956449821591 ] ],
-     *   [ 6, 1, 0, [ 0.9746099274139851, 3.1943195024505258 ] ],
-     *   [ 4, 4, 0, [ 0.8548573455074802, 4.208025245927274 ] ],
-     *   [ 0, 2, 0, [ 0.5310159111162648, 2.1983325434848666 ] ],
-     *   [ 2, 5, 0, [ 0.2029123648768291, 3.7863691188395023 ] ],
-     *   [ 2, 0, 0, [ 0.8644941310631111, 3.1860069474205375 ] ],
-     *   [ 2, 4, 0, [ 0.5648233695654199, 4.509953203611076 ] ],
-     *   [ 0, 3, 0, [ 0.2887267635436729, 2.4852411346510053 ] ],
-     *   [ 4, 0, 0, [ 0.5765978038311005, 4.324253366328776 ] ],
-     *   [ 1, 4, 0, [ 0.13715678565204145, 4.230334065854549 ] ],
-     *   [ 4, 3, 0, [ 0.9524454397847876, 4.599137608893216 ] ],
-     *   [ 6, 5, 0, [ 0.10689597697928549, 2.8708974570035934 ] ],
-     *   [ 2, 2, 0, [ 0.7996908309636638, 1.2923087924718857 ] ],
-     *   [ 0, 5, 0, [ 0.2593675417127088, 2.112125356681645 ] ],
-     *   [ 3, 6, 0, [ 0.7666619578609243, 4.399559769779444 ] ],
-     *   [ 0, 4, 0, [ 0.6861545875901356, 2.902697375975549 ] ],
-     *   [ 3, 0, 0, [ 0.2607291791588068, 3.502578324638307 ] ],
-     *   [ 1, 0, 0, [ 0.10631350260227919, 3.3223619032651186 ] ],
-     *   [ 4, 1, 0, [ 0.37756915972568095, 1.0713452529162169 ] ],
-     *   [ 1, 1, 0, [ 0.7460970640415325, 4.79499124083668 ] ]
-     * ]
-     */
+    /** Fixed seed, so the dataset is deterministic. It looks like this:
+    [
+        [ 0, 1, 0, [ 0.33201166945509614, 4.883088446222246 ] ],
+        [ 1, 2, 0, [ 0.8067952128592879, 1.8246583193540573 ] ],
+        [ 2, 3, 0, [ 0.37276469871867446, 3.988264188170433 ] ],
+        [ 3, 4, 0, [ 0.8008602868765593, 2.1380385160446167 ] ],
+        [ 4, 5, 0, [ 0.11488324149977416, 1.6458587693050504 ] ],
+        [ 5, 6, 0, [ 0.4293108242331073, 2.723430217243731 ] ],
+        [ 6, 0, 0, [ 0.6107399891829118, 1.708322730846703 ] ],
+        [ 1, 5, 0, [ 0.5451535127591342, 4.271623915992677 ] ],
+        [ 4, 4, 0, [ 0.6358937189215794, 2.6811922695487738 ] ],
+        [ 6, 6, 0, [ 0.8052156893070788, 4.3522876389324665 ] ],
+        [ 5, 2, 0, [ 0.14754845001734795, 2.57244582939893 ] ],
+        [ 6, 4, 0, [ 0.7732287779217586, 2.6994152925908566 ] ],
+        [ 5, 3, 0, [ 0.5258181978249923, 4.058477280661464 ] ],
+        [ 3, 6, 0, [ 0.3600014974363148, 3.2726546432822943 ] ],
+        [ 0, 3, 0, [ 0.8523457002593204, 1.7623348692432046 ] ],
+        [ 3, 0, 0, [ 0.9172770081553608, 2.8262222073972225 ] ],
+        [ 4, 3, 0, [ 0.35904268650338056, 2.076433563604951 ] ],
+        [ 3, 3, 0, [ 0.2308832285925746, 1.8733194768428802 ] ],
+        [ 1, 4, 0, [ 0.12692376074846834, 1.6959990467876196 ] ],
+        [ 6, 3, 0, [ 0.799583156616427, 4.544986343942583 ] ],
+        [ 4, 6, 0, [ 0.4149012216599658, 2.9873491106554866 ] ],
+        [ 4, 0, 0, [ 0.3617157768458128, 1.7045042049139738 ] ],
+        [ 5, 5, 0, [ 0.6956577381584793, 2.4083299105986953 ] ],
+        [ 0, 4, 0, [ 0.24257136990781875, 4.014981255866587 ] ],
+        [ 4, 2, 0, [ 0.8381071182666346, 4.101951841264963 ] ],
+        [ 3, 2, 0, [ 0.8987842471571639, 4.853179247118533 ] ],
+        [ 6, 1, 0, [ 0.4252595612546429, 2.0168049158528447 ] ],
+        [ 6, 2, 0, [ 0.5894664322724567, 2.357982726767659 ] ],
+        [ 2, 4, 0, [ 0.6129399889847263, 1.9084835834801197 ] ],
+        [ 5, 4, 0, [ 0.477551210206002, 4.507189719006419 ] ],
+        [ 1, 3, 0, [ 0.2735358789563179, 3.886520658619702 ] ],
+        [ 0, 2, 0, [ 0.9798181363148615, 2.5394800575450063 ] ],
+        [ 2, 6, 0, [ 0.4895730606513098, 1.6259095501154661 ] ],
+        [ 5, 1, 0, [ 0.23620948863681407, 4.36674131359905 ] ],
+        [ 1, 0, 0, [ 0.9443232758669182, 4.506862010806799 ] ],
+        [ 6, 5, 0, [ 0.7618148400913924, 3.425424194894731 ] ],
+        [ 3, 1, 0, [ 0.4377286916365847, 2.655184085480869 ] ],
+        [ 1, 6, 0, [ 0.6080814483575523, 2.300467910245061 ] ],
+        [ 1, 1, 0, [ 0.550566007080488, 4.160652770660818 ] ],
+        [ 3, 5, 0, [ 0.9140818861778826, 3.54092488437891 ] ],
+        [ 0, 5, 0, [ 0.15350653247442098, 2.56502952799201 ] ],
+        [ 2, 5, 0, [ 0.8885860482230783, 2.952179224230349 ] ],
+        [ 2, 2, 0, [ 0.46744205243885517, 1.0989629067480564 ] ],
+        [ 4, 1, 0, [ 0.3038341128267348, 4.036030148155987 ] ],
+        [ 0, 6, 0, [ 0.8232277376810089, 4.200122385285795 ] ],
+        [ 0, 0, 0, [ 0.9613372520543635, 2.5548888482153416 ] ],
+        [ 5, 0, 0, [ 0.6231164352037013, 4.922250256873667 ] ]
+    ]
+    */
 
-    const dataSet: CFComparison[] = gen.arr; // Valid dataset from generator.
+    const dataSet: CFValidCompDataSet = gen.arr; // Valid dataset from generator.
 
     let compFunc : CFCompFuncBinary;
 
@@ -162,18 +163,18 @@ function substitutability(): void {
     for (let i = 1; i < numUnits; i++) {
         const sub = substitutable(ufs[0]!, ufs[i]!);
         if (sub) {
-            console.log(`Unit function ${i} is substitutable with ${u}`);
+            console.log(`Unit function ${0} is substitutable with ${i}`);
         }
     }
-    // 0 and 1, 0 and 2, 0 and 4, 0 and 6.
-    // Thus, also 1 and 2, 4 and 6, etc.
+    // 0 is substitutable with 1, 3, 4, 5, and 6.
+    // Thus, from equivalence of substitutability, we can substitute 1 with 3, 4 with 6, and so on.
 
-    // Knowing only this, let's filter the dataset to only include these units.
+    // Knowing only this, let's filter the dataset to only include these units (i.e., exclude the unit 2).
     let prunedDataSetResult = pruneDataset(
         dataSet,
         numUnits,
         numSeriesIndices,
-        new Set([0, 1, 2, 4, 6] as CFUint32[]), // Use this set to prune the dataset.
+        new Set([0, 1, 3, 4, 5, 6] as CFUint32[]), // Use this set to prune the dataset.
         new Set([0] as CFUint32[]) // Use the same series indices (only 0).
     );
 
@@ -182,84 +183,32 @@ function substitutability(): void {
         throw new Error("Pruning failed.");
     }
 
-    // There are 5 units in the pruned dataset. Since X = {0, 1, 2, 4, 6} is not a unit set,
-    // the dataset and unit set will be re-indexed, i.e., U = {0, 1, 2, 3, 4}.
+    // There are 6 units in the pruned dataset. Since X = {0, 1, 3, 4, 5, 6} is not a unit set,
+    // the dataset and unit set will be re-indexed, i.e., U = {0, 1, 2, 3, 4, 5}.
     console.log("Unit mapping before->after pruning:");
     console.log(prunedDataSetResult.unitMap);
 
     // Now make a new comparison function:
     try {
-        compFunc = createBinaryCompFunc(prunedDataSetResult.dataset, 5 as CFUint32, 1 as CFUint32);
+        compFunc = createBinaryCompFunc(prunedDataSetResult.dataset, 6 as CFUint32, 1 as CFUint32);
     } catch (e) {
         if (e instanceof Error) console.error("Error creating comparison function:", e.message);
         return;
     }
-
+    
     // If all base unit functions are substitutable, maybe we have an orthogonal comparison function?
-    // Maybe the unit set {0, 1, 2, 4, 6} is an orthogonal subset of the original U?
+    // Maybe the unit set {0, 1, 2, 3, 4, 5} is an orthogonal subset of the original U?
     if (compFunc.ORT_FRAME(0 as CFUint32)) {
-        console.log("The unit set {0, 1, 2, 4, 6} is an orthogonal subset of the original U.");
+        console.log("The unit set {0, 1, 2, 3, 4, 5} is an orthogonal subset of the original U.");
     } else {
-        throw new Error("The units {0, 1, 2, 4, 6} are not an orthogonal subset of the original U.");
+        throw new Error("The unit set {0, 1, 2, 3, 4, 5} is not an orthogonal subset of the original U.");
     }
 
-    // This is indeed the case. But what about the other units? Are they perhaps mutually orthogonal?
-    // These are the units 3 and 5.
-    const sub35 = substitutable(ufs[3]!, ufs[5]!);
-    console.log(`Unit function 3 is substitutable with unit function 5: ${sub35}`);
-
-    // No, they are not. What is the degree?
-    const degSub35 = degSub(ufs[3]!, ufs[5]!)!; // Cheating here.
-    console.log(`Degree of substitution between unit functions 3 and 5: ${degSub35}`);
-
-    // About 0.71. Thus, we did not have an orthogonal comparison function to begin with.
-    // That would have been the case if the degree here was 0 - in which case the base
-    // classes would have been {{0, 1, 2, 4, 6}, {3}, {5}}, but now, 3 and 5 are not
-    // completely separate.
-
-    // Finally, let's just check where the difference is coming from.
-    const f3 = ufs[3]!;
-    const f5 = ufs[5]!;
-    for (let u = 0 as CFUint32; u < numUnits; u++) {
-        const ex = f3.E(u, 0);
-        const ey = f5.E(u, 0);
-        console.log(
-            `f3 and f5 are both non-null or null for unit ${u}: ${ex === ey}`
-        )
-    }
-
-    // 5 out of 7 are the same, they only differ for unit arguments 0 and 1 (hence 0.71428... = 5 / 7)
-    // What if we remove those two units?
-
-    prunedDataSetResult = pruneDataset(
-        dataSet,
-        numUnits,
-        numSeriesIndices,
-        new Set([2, 3, 4, 5, 6] as CFUint32[]),
-        new Set([0] as CFUint32[])
-    )!;
-
-    try {
-        compFunc = createBinaryCompFunc(prunedDataSetResult.dataset, 5 as CFUint32, 1 as CFUint32);
-    } catch (e) {
-        if (e instanceof Error) console.error("Error creating comparison function:", e.message);
-        return;
-    }
-
-    if (compFunc.ORT_FRAME(0 as CFUint32)) {
-        console.log("The unit set {2, 3, 4, 5, 6} is an orthogonal subset of the original U.");
-    }
-
-    // We now have orthogonality! The reason: f3 and f5 are now orthogonal (degree of substitutability
-    // is 0) For the remaining units - their base unit functions were substitutable even with units
-    // 1 and 0 in the set, so the subset of those functions that excludes f0 and f1 (with the remaining
-    // ones having fewer arguments) are still orthogonal.
-
-    // Thus we have used substitutability to find two different orthogonal subsets of this comparison
-    // function.
+    // Thus, in this case, when we took the units for which all the base unit functions were orthogonal,
+    // that set of units were an orthogonal subset of the original unit set.
 
     console.log("Everything worked as expected!");
     return;
 }
 
-substitutability();
+substitutabilityNonOrthogonal();

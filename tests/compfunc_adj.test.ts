@@ -1,4 +1,3 @@
-// tests/compfunc.adj.spec.ts
 import { describe, it, expect } from 'vitest';
 import { createBinaryCompFunc } from '../src';
 import type {
@@ -11,8 +10,6 @@ import type {
 
 describe('CFCompFuncBinaryImpl: adj(s) → CFBit[][]', () => {
     // Small deterministic fixture: U=3, S=2
-    // s=0 has: (0,0), (0,2), (1,0)
-    // s=1 has: (2,1)
     const U = 3 as CFUint32;
     const S = 2 as CFUint32;
 

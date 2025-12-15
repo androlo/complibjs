@@ -14,15 +14,16 @@ import {
     CFUnit, CFUnitFuncDense,
     CFUnitFuncSparse, createBinaryCompFunc, createBaseUnitFunction,
     createConstUnitFunc,
-    CFStorageTag
+    CFStorageTag,
+    CFUint32
 } from "../src";
 import {makeValidCFCompDataset} from "./utils/dataset_gen";
 
 function getCompFunc(): CFCompFuncBinary {
     const base = makeValidCFCompDataset({
-        maxUnitIndex: 0,
-        maxSeriesIndex: 0,
-        numComparisons: 1,
+        maxUnitIndex: 0 as CFUint32,
+        maxSeriesIndex: 0 as CFUint32,
+        numComparisons: 1 as CFUint32,
         loRange: [0.1,1],
         hiRange: [1,2]
     });
@@ -34,7 +35,7 @@ function getCompFunc(): CFCompFuncBinary {
 // ============================================================================
 
 describe('materializeDenseSparse', () => {
-    // Build a real 1-D sparse (CSR) from your factory
+    // Build a real 1-D sparse (CSR)
     const cf = getCompFunc();
     const sp = createBaseUnitFunction(cf, 0 as CFUnit); // CFUnitFuncSparse<1>
     const NU = sp.NU;
@@ -97,13 +98,13 @@ describe('materializeDenseSparse', () => {
     });
 
     describe('Sub', () => {
-        it('Left: dense − sparse', () => {
+        it('Left: dense - sparse', () => {
             const d = denseFromSparse();
             const out = materializeDenseSparse(d, sp, ALGEBRA_IVAL.sub, CFBinOpType.Left);
             checkGrid(out, d, sp, ALGEBRA_IVAL.sub, true);
         });
 
-        it('Right: sparse − dense', () => {
+        it('Right: sparse - dense', () => {
             const d = denseFromSparse();
             const out = materializeDenseSparse(d, sp, ALGEBRA_IVAL.sub, CFBinOpType.Right);
             checkGrid(out, d, sp, ALGEBRA_IVAL.sub, false);

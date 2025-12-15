@@ -44,12 +44,12 @@ describe('getValueBitset', () => {
 
     it('gets correct values for a valid generated dataset from comparison function', () => {
         const {arr, numUnits, numSeriesIndices} = makeValidCFCompDataset({
-            maxUnitIndex: 7,          // U=3
-            maxSeriesIndex: 3,        // S=2
-            numComparisons: 17,
+            maxUnitIndex: 7 as CFUint32,          // U=3
+            maxSeriesIndex: 3 as CFUint32,        // S=2
+            numComparisons: 17 as CFUint32,
             loRange: [-5, 2],
             hiRange: [-1, 8],
-            seed: 42,
+            seed: 42 as CFUint32,
             diagonalBias: 'avoid',
             seriesDistribution: 'roundRobin',
         });
@@ -75,12 +75,12 @@ describe('getValueBitset', () => {
 
     it('gets correct values for a valid generated dataset from base unit function', () => {
         const {arr, numUnits, numSeriesIndices} = makeValidCFCompDataset({
-            maxUnitIndex: 7,          // U=3
-            maxSeriesIndex: 3,        // S=2
-            numComparisons: 17,
+            maxUnitIndex: 7 as CFUint32,          // U=3
+            maxSeriesIndex: 3 as CFUint32,        // S=2
+            numComparisons: 17 as CFUint32,
             loRange: [-5, 2],
             hiRange: [-1, 8],
-            seed: 42,
+            seed: 42 as CFUint32,
             diagonalBias: 'avoid',
             seriesDistribution: 'roundRobin',
         });
@@ -107,12 +107,12 @@ describe('getValueBitset', () => {
 
     it('gets correct values for a valid generated dataset from base unit function inverse', () => {
         const {arr, numUnits, numSeriesIndices} = makeValidCFCompDataset({
-            maxUnitIndex: 7,
-            maxSeriesIndex: 3,
-            numComparisons: 17,
+            maxUnitIndex: 7 as CFUint32,
+            maxSeriesIndex: 3 as CFUint32,
+            numComparisons: 17 as CFUint32,
             loRange: [-5, 2],
             hiRange: [-1, 8],
-            seed: 42,
+            seed: 42 as CFUint32,
             diagonalBias: 'avoid',
             seriesDistribution: 'roundRobin',
         });

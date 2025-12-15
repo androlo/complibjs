@@ -21,12 +21,12 @@ import {generatePowerArray} from "../src/math_utils";
 describe('sparseToDense', () => {
     it('should convert sparse to dense', () => {
         const {arr, numUnits, numSeriesIndices} = makeValidCFCompDataset({
-            maxUnitIndex: 2,          // U=3
-            maxSeriesIndex: 1,        // S=2
-            numComparisons: 10,
+            maxUnitIndex: 2 as CFUint32,          // U=3
+            maxSeriesIndex: 1 as CFUint32,        // S=2
+            numComparisons: 10 as CFUint32,
             loRange: [-5, 2],
             hiRange: [-1, 8],
-            seed: 42,
+            seed: 42 as CFUint32,
             diagonalBias: 'avoid',
             seriesDistribution: 'roundRobin',
         });
@@ -91,12 +91,12 @@ describe('sparseToDense', () => {
 describe('measureDensitySparse', () => {
     it('should find the right density of a sparse function', () => {
         const {arr, numUnits, numSeriesIndices} = makeValidCFCompDataset({
-            maxUnitIndex: 2,          // U=3
-            maxSeriesIndex: 1,        // S=2
-            numComparisons: 10,
+            maxUnitIndex: 2 as CFUint32,          // U=3
+            maxSeriesIndex: 1 as CFUint32,        // S=2
+            numComparisons: 10 as CFUint32,
             loRange: [-5, 2],
             hiRange: [-1, 8],
-            seed: 42,
+            seed: 42 as CFUint32,
             diagonalBias: 'avoid',
             seriesDistribution: 'roundRobin',
         });
@@ -112,12 +112,12 @@ describe('measureDensitySparse', () => {
 describe('measureDensityDense', () => {
     it('should find the right density of a dense function', () => {
         const {arr, numUnits, numSeriesIndices} = makeValidCFCompDataset({
-            maxUnitIndex: 2,          // U=3
-            maxSeriesIndex: 1,        // S=2
-            numComparisons: 10,
+            maxUnitIndex: 2 as CFUint32,          // U=3
+            maxSeriesIndex: 1 as CFUint32,        // S=2
+            numComparisons: 10 as CFUint32,
             loRange: [-5, 2],
             hiRange: [-1, 8],
-            seed: 42,
+            seed: 42 as CFUint32,
             diagonalBias: 'avoid',
             seriesDistribution: 'roundRobin',
         });

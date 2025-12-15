@@ -1,8 +1,6 @@
-// tests/buildSubsetMask.test.ts
 import { describe, it, expect } from 'vitest';
 import {buildSubsetMask} from "../src/bit_utils";
 
-// handy ctor
 const u32 = (...ns: number[]) => new Uint32Array(ns.map(n => n >>> 0));
 
 describe('buildSubsetMask', () => {

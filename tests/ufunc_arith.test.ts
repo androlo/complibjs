@@ -22,9 +22,9 @@ import {makeValidCFCompDataset} from "./utils/dataset_gen";
 
 function getCompFunc(): CFCompFuncBinary {
     const base = makeValidCFCompDataset({
-        maxUnitIndex: 1,
-        maxSeriesIndex: 1,
-        numComparisons: 2,
+        maxUnitIndex: 1 as CFUint32,
+        maxSeriesIndex: 1 as CFUint32,
+        numComparisons: 2 as CFUint32,
         loRange: [0.1,1],
         hiRange: [1,2]
     });

@@ -2,7 +2,6 @@
 import {describe, expect, it} from "vitest";
 import {isSubsetWords} from "../src/bit_utils";
 
-// Helper to create Uint32Array from numbers.
 function u32(...nums: number[]): Uint32Array {
     return new Uint32Array(nums.map(n => n >>> 0));
 }

@@ -25,9 +25,9 @@ import {makeValidCFCompDataset} from "./utils/dataset_gen";
 
 function getCompFunc(): CFCompFuncBinary {
     const base = makeValidCFCompDataset({
-        maxUnitIndex: 0,
-        maxSeriesIndex: 0,
-        numComparisons: 1,
+        maxUnitIndex: 0 as CFUint32,
+        maxSeriesIndex: 0 as CFUint32, 
+        numComparisons: 1 as CFUint32,
         loRange: [0.1,1],
         hiRange: [1,2]
     });
@@ -189,8 +189,7 @@ describe('CFUnitFuncDenseImpl.tmul', () => {
 
     it('general case: returns Tensor node with dim = sum', () => {
         const d0 = createZeroDimFunc(1 as CFUint32, 1 as CFUint32, [[2, 3] as any]);
-        // Use any non-zero-dim CFUnitFunc (e.g., a sparse from your factory)
-        const cf = getCompFunc(); // or however you obtain your CFCompFuncBinary
+        const cf = getCompFunc(); 
         const suf = createBaseUnitFunction(cf, 0 as CFUnit); // dim=1 sparse
 
         const res = d0.tmul(suf, CFBinOpType.Right)!;

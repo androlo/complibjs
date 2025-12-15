@@ -12,16 +12,17 @@ import {
     CFUnitFuncSparse,
     createBinaryCompFunc,
     createBaseUnitFunction,
-    CFStorageTag
+    CFStorageTag,
+    CFUint32
 } from "../src";
 import {makeValidCFCompDataset} from "./utils/dataset_gen";
 import {materializeSparseSparse} from "../src/materialize";
 
 function getCompFunc(): CFCompFuncBinary {
     const base = makeValidCFCompDataset({
-        maxUnitIndex: 1,
-        maxSeriesIndex: 0,
-        numComparisons: 2,
+        maxUnitIndex: 1 as CFUint32,
+        maxSeriesIndex: 0 as CFUint32,
+        numComparisons: 2 as CFUint32,
         loRange: [0.1,1],
         hiRange: [1,2]
     });

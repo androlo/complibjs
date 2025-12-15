@@ -51,7 +51,7 @@ a useful observable in this context). However, we will not include the 'average'
 because they are derived values, but because they do not specify a unit.
 */
 
-function pendulumDataset(): void {
+export function pendulumDataset(): void {
 
     /**
      *
