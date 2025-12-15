@@ -4,6 +4,8 @@ _A TypeScript/JavaScript implementation of the [Comparison Framework](https://gi
 
 ---
 
+NOTE: Still cleaning up this library for release, taking care of some drift etc. If you happen to come across this before the next announcement, keep that in mind. This should only be the status for a few days.
+
 ## Installation
 
 Using a package manager:
