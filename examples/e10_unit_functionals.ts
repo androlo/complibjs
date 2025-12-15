@@ -169,7 +169,6 @@ export function unitFunctionals(): void {
 
     // When calling 'get', we should get 'fd0 + fd1'. Let's create it using addition to check.
     const sumd0d1 = fd0.add(fd1)!;
-
     const sumd0d1_from_functional = sumufl.get()! as CFUnitFunc<CFUint32One>;
     if(!sumd0d1.equals(sumd0d1_from_functional)) {
         throw new Error("Sum of unit functionals did not equal the sum of the original functions!");
@@ -210,7 +209,7 @@ export function unitFunctionals(): void {
     console.log("fd0(d0, 0):", fd0.get(d0, i0)!);
     console.log("fd1(d0, 0):", fd1.get(d0, i0)!);
     console.log("Manually computed linear combination:",
-        ALGEBRA_IVAL.add(
+        ALGEBRA_IVAL.add(   
             ALGEBRA_IVAL.mul(fd0.get(d0, i0)!, c0),
             ALGEBRA_IVAL.mul(fd1.get(d0, i0)!, c1)
         )

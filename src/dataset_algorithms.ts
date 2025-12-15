@@ -459,6 +459,7 @@ export function pruneDataset(
     unitSubset: ReadonlySet<CFUnit>,
     seriesSubset: ReadonlySet<CFSeriesIndex>
 ): ReindexResult | undefined {
+    
     // first do units
     const unitsResult = pruneUnits(dataset, numUnits, unitSubset);
     if (!unitsResult) {

@@ -4,8 +4,6 @@ _A TypeScript/JavaScript implementation of the [Comparison Framework](https://gi
 
 ---
 
-NOTE: Still cleaning up this library for release, taking care of some drift etc. If you happen to come across this before the next announcement, keep that in mind. This should only be the status for a few days.
-
 ## Installation
 
 Using a package manager:
@@ -24,7 +22,7 @@ yarn add complibjs
 
 The best way to learn how the library works is by looking at the examples. They are very well documented, start simple, and cover most use cases.
 
-There is also a spec underway, in the spec folder.
+There is also a work-in-progress spec, in the docs folder.
 
 ## Concepts
 

@@ -949,6 +949,7 @@ export class CFUnitFuncArithImpl<Dim extends CFDim> extends
     }
 
     equals = (other: CFUnitFunc<Dim>): boolean => {
+
         if(!this.equalDomains(other))
             return false;
 
@@ -960,9 +961,10 @@ export class CFUnitFuncArithImpl<Dim extends CFDim> extends
         if(this.opType != otherArith.opType)
             return false;
 
-        if(this.arithOp != otherArith.CFArithOp)
+        if(this.arithOp != otherArith.arithOp)
             return false;
-
+        
+        // Recursive check on left and right children.
         return this.left.equals(otherArith.left) && this.right.equals(otherArith.right);
     }
 }

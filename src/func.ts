@@ -267,20 +267,28 @@ export class CFFuncSparseImpl<Dim extends CFDimSparse> extends CFFuncBaseAbstrac
     }
 
     equals = (other: CFFuncBase<CFStorageTag.Sparse,Dim>): boolean => {
+
         if(!this.equalDomains(other)) {
             return false;
         }
+
         if (this.storage !== other.storage) {
             return false;
         }
+
         const otherSparse = other as CFFuncSparse<Dim>;
+
         if (!bitsetEquals(this, otherSparse, false)) { // Check it all for sanity.
             return false;
         }
+
         // Sanity
         if(this.values.length !== otherSparse.values.length) {
             throw new Error("CFFuncDenseImpl: values.length !== otherDense.values.length");
         }
+
+        
+
         for(let i = 0; i < this.values.length; i++) {
             if (!ALGEBRA_IVAL.eq(this.values[i]!, otherSparse.values[i]!)) {
                 return false;
@@ -288,4 +296,5 @@ export class CFFuncSparseImpl<Dim extends CFDimSparse> extends CFFuncBaseAbstrac
         }
         return true;
     }
+
 }
