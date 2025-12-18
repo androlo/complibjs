@@ -6,15 +6,7 @@ _A TypeScript/JavaScript implementation of the [Comparison Framework](https://gi
 
 ## Installation
 
-Using a package manager:
-
-```bash
-npm install complibjs
-# or
-pnpm add complibjs
-# or
-yarn add complibjs
-```
+Use git.
 
 ---
 
